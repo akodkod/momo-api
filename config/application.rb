@@ -19,6 +19,7 @@ require "action_view/railtie"
 
 require "rails/test_unit/railtie"
 
+require_relative "../lib/env"
 require_relative "../lib/momo"
 require_relative "initializers/sorbet"
 
