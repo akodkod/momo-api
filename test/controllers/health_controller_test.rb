@@ -1,0 +1,11 @@
+# typed: true
+# frozen_string_literal: true
+
+require "test_helper"
+
+class HealthControllerTest < ActionDispatch::IntegrationTest
+  test "should get index" do
+    get rails_health_check_url
+    assert_response :success
+  end
+end

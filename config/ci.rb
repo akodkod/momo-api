@@ -1,9 +1,11 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 # Run using bin/ci
 
 CI.run do
+  T.bind(self, T.all(CI, Object))
+
   step "Setup", "bin/setup --skip-server"
 
   step "Style: Ruby", "bin/rubocop"

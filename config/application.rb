@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 require_relative "boot"
@@ -19,7 +19,8 @@ require "action_view/railtie"
 
 require "rails/test_unit/railtie"
 
-require_relative "../lib/modules"
+require_relative "../lib/momo"
+require_relative "initializers/sorbet"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

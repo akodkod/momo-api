@@ -1,5 +1,7 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
+
+T.bind(self, T.all(Puma::DSL, Object))
 
 # This configuration file will be evaluated by Puma. The top-level methods that
 # are invoked here are part of Puma's configuration DSL. For more information

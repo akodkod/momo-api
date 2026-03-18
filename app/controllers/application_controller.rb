@@ -1,5 +1,6 @@
-# typed: false
+# typed: true
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  include Memery
 end

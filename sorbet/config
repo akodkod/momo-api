@@ -1,0 +1,10 @@
+--dir
+.
+--allowed-extension=.rb
+--allowed-extension=.rbi
+--allowed-extension=.rake
+--ignore=tmp/
+--ignore=vendor/
+--enable-all-beta-lsp-features
+--enable-experimental-requires-ancestor
+--suppress-payload-superclass-redefinition-for=RDoc::Markup::Heading

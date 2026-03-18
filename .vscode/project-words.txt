@@ -1,3 +1,9 @@
+akodkod
+annotaterb
 autocorrection
+dotenv
+memery
 Momo
+pidfile
+pids
 rubocop
