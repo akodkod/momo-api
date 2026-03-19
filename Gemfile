@@ -10,7 +10,6 @@ gem "memery", "1.8.0"
 gem "operandi", github: "akodkod/operandi"
 gem "pg", "1.6.3"
 gem "puma", "7.2.0"
-gem "rails-reverse-proxy", "0.13.0"
 gem "sentry-rails", "6.5.0"
 gem "sentry-ruby", "6.5.0"
 gem "thruster", "0.1.19", require: false

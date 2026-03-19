@@ -2,15 +2,47 @@
 # frozen_string_literal: true
 
 class ProxyController < ApplicationController
-  include ReverseProxy::Controller
-
   def openai
-    reverse_proxy Env.openai_api_url, headers: openai_headers
+    uri = build_target_uri
+    upstream = execute_request(uri)
+
+    render body: upstream.body,
+           status: upstream.code.to_i,
+           content_type: upstream["Content-Type"]
   end
 
   private
 
-  memoize def openai_headers
-    { Authorization: "Bearer #{Env.openai_api_key}" }
+  def build_target_uri
+    target = "#{Env.openai_api_url}/#{params[:path]}"
+    target += "?#{request.query_string}" if request.query_string.present?
+    URI.parse(target)
+  end
+
+  def execute_request(uri)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = uri.scheme == "https"
+
+    req = net_http_request_class.new(uri)
+    req["Authorization"] = "Bearer #{Env.openai_api_key}"
+    req["Content-Type"] = request.content_type if request.content_type
+    req["Accept"] = request.headers["Accept"] if request.headers["Accept"]
+    req.body = request.raw_post if request.post? || request.put? || request.patch?
+
+    http.request(req)
+  end
+
+  def net_http_request_class
+    case request.method
+    when "GET" then Net::HTTP::Get
+    when "POST" then Net::HTTP::Post
+    when "PUT" then Net::HTTP::Put
+    when "PATCH" then Net::HTTP::Patch
+    when "DELETE" then Net::HTTP::Delete
+    when "HEAD" then Net::HTTP::Head
+    when "OPTIONS" then Net::HTTP::Options
+    else
+      raise ArgumentError, "Unsupported HTTP method: #{request.method}"
+    end
   end
 end
